@@ -1,12 +1,7 @@
 import { euclideanDistance } from "@/math/geometry"
 import { dotProduct, type Vector2 } from "@/math/linear-algebra"
 import { randomIntFromRange, randomColor } from "./utils"
-
-interface RGB {
-  r: number
-  g: number
-  b: number
-}
+import { type RGB } from "./color-models"
 
 function rotateVelocities(velocity: Vector2, theta: number): Vector2 {
   const rotatedVelocity = {
