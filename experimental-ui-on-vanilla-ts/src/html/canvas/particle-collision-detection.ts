@@ -1,21 +1,11 @@
 import { euclideanDistance } from "@/math/geometry"
-import { dotProduct } from "@/math/linear-algebra"
-import { randomIntFromRange, randomColor } from "./canvas-utils"
-
-interface MousePosition {
-  x: number
-  y: number
-}
+import { dotProduct, type Vector2 } from "@/math/linear-algebra"
+import { randomIntFromRange, randomColor } from "./utils"
 
 interface RGB {
   r: number
   g: number
   b: number
-}
-
-interface Vector2 {
-  x: number
-  y: number
 }
 
 function rotateVelocities(velocity: Vector2, theta: number): Vector2 {
@@ -27,7 +17,7 @@ function rotateVelocities(velocity: Vector2, theta: number): Vector2 {
 }
 
 class Particle {
-  mousePosition: MousePosition
+  mousePosition: Vector2
   x: number
   y: number
   velocity: Vector2
@@ -38,7 +28,7 @@ class Particle {
   g: number
   b: number
 
-  constructor(mousePosition: MousePosition, x: number, y: number, radius: number, rgb: RGB) {
+  constructor(mousePosition: Vector2, x: number, y: number, radius: number, rgb: RGB) {
     this.mousePosition = mousePosition
     this.x = x
     this.y = y
@@ -146,7 +136,7 @@ class Particle {
   }
 }
 
-function createParticles(mousePosition: MousePosition, colors: RGB[]) {
+function createParticles(mousePosition: Vector2, colors: RGB[]) {
   const particles: Particle[] = []
   const radius = 15
 
@@ -192,15 +182,15 @@ function main() {
     mousePosition.y = event.clientY
   })
 
+  let particles = createParticles(mousePosition, colors)
+
   addEventListener("resize", () => {
     canvas.width = innerWidth
     canvas.height = innerHeight
-    createParticles(mousePosition, colors)
+    particles = createParticles(mousePosition, colors)
   })
 
   const ctx = canvas.getContext("2d") as CanvasRenderingContext2D
-
-  const particles = createParticles(mousePosition, colors)
 
   function animate() {
     requestAnimationFrame(animate)

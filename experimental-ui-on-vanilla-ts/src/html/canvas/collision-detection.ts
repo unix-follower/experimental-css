@@ -57,21 +57,22 @@ function main() {
     mouse.y = event.clientY
   })
 
+  let circles = createCircles()
+
   addEventListener("resize", () => {
     canvas.width = innerWidth
     canvas.height = innerHeight
-    createCircles()
+    circles = createCircles()
   })
 
   const ctx = canvas.getContext("2d") as CanvasRenderingContext2D
-
-  const [circle1, circle2] = createCircles()
 
   function animate() {
     requestAnimationFrame(animate)
 
     ctx.clearRect(0, 0, canvas.width, canvas.height)
 
+    const [circle1, circle2] = circles
     circle1.update(ctx)
 
     circle2.x = mouse.x

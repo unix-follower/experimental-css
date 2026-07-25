@@ -1,7 +1,4 @@
-interface Vector2 {
-  x: number
-  y: number
-}
+import type { Vector2 } from "@/math/linear-algebra"
 
 interface RectangleParams {
   x: number
@@ -40,19 +37,18 @@ class Rectangle {
 }
 
 function createRectangles(center: Vector2) {
-  const rectangle1 = new Rectangle({
-    x: center.x - 150,
-    y: center.y - 50,
-    color: "red",
-  })
-
-  const rectangle2 = new Rectangle({
-    x: center.x + 50,
-    y: center.y - 50,
-    color: "blue",
-  })
-
-  return [rectangle1, rectangle2]
+  return [
+    new Rectangle({
+      x: center.x - 150,
+      y: center.y - 50,
+      color: "red",
+    }),
+    new Rectangle({
+      x: center.x + 50,
+      y: center.y - 50,
+      color: "blue",
+    }),
+  ]
 }
 
 function main() {
@@ -76,15 +72,15 @@ function main() {
     mousePosition.y = event.clientY
   })
 
+  let rectangles = createRectangles(center)
+
   addEventListener("resize", () => {
     canvas.width = innerWidth
     canvas.height = innerHeight
-    createRectangles(center)
+    rectangles = createRectangles(center)
   })
 
   const ctx = canvas.getContext("2d") as CanvasRenderingContext2D
-
-  const rectangles = createRectangles(center)
 
   function animate() {
     requestAnimationFrame(animate)
