@@ -1,4 +1,4 @@
-import { randomIntFromRange, randomColor } from "./canvas-utils"
+import { randomIntFromRange, randomColor } from "./utils"
 
 interface CircleParams {
   x: number
@@ -61,8 +61,13 @@ class Circle {
   }
 }
 
-function init(canvas: HTMLCanvasElement, colors: string[], gravity: number, friction: number) {
-  const circleArray = []
+function createCircles(
+  canvas: HTMLCanvasElement,
+  colors: string[],
+  gravity: number,
+  friction: number,
+) {
+  const circles = []
 
   for (let i = 0; i < 100; i++) {
     const radius = randomIntFromRange(8, 20)
@@ -70,12 +75,12 @@ function init(canvas: HTMLCanvasElement, colors: string[], gravity: number, fric
     const y = randomIntFromRange(0, canvas.height - radius)
     const dx = randomIntFromRange(-3, 3)
     const dy = randomIntFromRange(-2, 2)
-    circleArray.push(
+    circles.push(
       new Circle({ x, y, dx, dy, radius, color: randomColor(colors), gravity, friction }),
     )
   }
 
-  return circleArray
+  return circles
 }
 
 function main() {
@@ -89,27 +94,26 @@ function main() {
   const gravity = 0.2
   const friction = 0.98
 
+  let circles = createCircles(canvas, colors, gravity, friction)
+
   addEventListener("resize", () => {
     canvas.width = innerWidth
     canvas.height = innerHeight
-    init(canvas, colors, gravity, friction)
+    circles = createCircles(canvas, colors, gravity, friction)
   })
 
   const ctx = canvas.getContext("2d") as CanvasRenderingContext2D
-
-  const circleArray = init(canvas, colors, gravity, friction)
 
   function animate() {
     requestAnimationFrame(animate)
 
     ctx.clearRect(0, 0, canvas.width, canvas.height)
 
-    for (const element of circleArray) {
-      element.update(ctx)
+    for (const circle of circles) {
+      circle.update(ctx)
     }
   }
 
-  init(canvas, colors, gravity, friction)
   animate()
 }
 

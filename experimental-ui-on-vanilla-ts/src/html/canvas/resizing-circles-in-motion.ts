@@ -1,7 +1,4 @@
-interface MousePosition {
-  x: number
-  y: number
-}
+import type { Vector2 } from "@/math/linear-algebra"
 
 const minRadius = 2
 const maxRadius = 40
@@ -9,7 +6,7 @@ const maxRadius = 40
 const colorArray = ["#2C3E50", "#E74C3C", "#ECF0F1", "#3498DB", "#298089"]
 
 class Circle {
-  mousePosition: MousePosition
+  mousePosition: Vector2
   x: number
   y: number
   dx: number
@@ -17,7 +14,7 @@ class Circle {
   radius: number
 
   constructor(
-    mousePosition: MousePosition,
+    mousePosition: Vector2,
     x: number,
     y: number,
     dx: number,
@@ -71,17 +68,17 @@ class Circle {
   }
 }
 
-function init(mousePosition: MousePosition) {
-  const circleArray: Circle[] = []
+function createCircles(mousePosition: Vector2) {
+  const circles: Circle[] = []
   for (let i = 0; i < 100; i++) {
     const radius = Math.random()
     const x = Math.random() * (innerWidth - radius * 2) + radius
     const y = Math.random() * (innerHeight - radius * 2) + radius
     const dx = Math.random() - 0.5 // * 2
     const dy = Math.random() - 0.5 // * 2
-    circleArray.push(new Circle(mousePosition, x, y, dx, dy, radius))
+    circles.push(new Circle(mousePosition, x, y, dx, dy, radius))
   }
-  return circleArray
+  return circles
 }
 
 function main() {
@@ -103,13 +100,13 @@ function main() {
 
   const ctx = canvas.getContext("2d") as CanvasRenderingContext2D
 
-  const circleArray = init(mousePosition)
+  const circles = createCircles(mousePosition)
 
   function animate() {
     requestAnimationFrame(animate)
     ctx.clearRect(0, 0, innerWidth, innerHeight)
-    for (const element of circleArray) {
-      element.update(ctx)
+    for (const circle of circles) {
+      circle.update(ctx)
     }
   }
 
