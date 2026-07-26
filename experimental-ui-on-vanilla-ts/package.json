@@ -32,6 +32,7 @@
     "@opentelemetry/sdk-trace-web": "^2.9.0",
     "@opentelemetry/semantic-conventions": "^1.43.0",
     "dat.gui": "^0.7.9",
+    "gsap": "^3.15.0",
     "p5": "^2.3.1"
   },
   "devDependencies": {
