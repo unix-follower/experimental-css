@@ -2,6 +2,7 @@ import { defineConfig } from "vite"
 import { globSync } from "glob"
 import { dirname, resolve } from "node:path"
 import { fileURLToPath } from "node:url"
+import tailwindcss from "@tailwindcss/vite"
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = dirname(__filename)
@@ -16,6 +17,7 @@ console.debug("HTML pages:", pages)
 
 // https://vitejs.dev/config
 export default defineConfig({
+  plugins: [tailwindcss()],
   resolve: {
     tsconfigPaths: true,
     alias: {
