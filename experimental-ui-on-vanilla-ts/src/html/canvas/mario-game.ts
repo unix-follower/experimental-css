@@ -90,11 +90,11 @@ class Player {
     this.frames++
     if (
       (this.frames > 29 &&
-      (this.currentSprite === this.sprites.run.right ||
-        this.currentSprite === this.sprites.run.left)) ||
+        (this.currentSprite === this.sprites.run.right ||
+          this.currentSprite === this.sprites.run.left)) ||
       (this.frames > 59 &&
-      (this.currentSprite === this.sprites.stand.right ||
-        this.currentSprite === this.sprites.stand.left))
+        (this.currentSprite === this.sprites.stand.right ||
+          this.currentSprite === this.sprites.stand.left))
     ) {
       this.frames = 0
     }
@@ -161,7 +161,7 @@ function init(ctx: CanvasRenderingContext2D) {
     speed: 10,
     image: createImage(spriteStandRight),
   })
-  const {canvas} = ctx
+  const { canvas } = ctx
   const platformLandingPosition = canvas.height - platformImage.height * 0.9
   const platforms = [
     new Platform({
@@ -171,10 +171,26 @@ function init(ctx: CanvasRenderingContext2D) {
     }),
     new Platform({ x: -1, y: platformLandingPosition, image: platformImage }),
     new Platform({ x: platformImage.width - 3, y: platformLandingPosition, image: platformImage }), // y: 470,
-    new Platform({ x: platformImage.width * 2 + 100, y: platformLandingPosition, image: platformImage }),
-    new Platform({ x: platformImage.width * 3 + 300, y: platformLandingPosition, image: platformImage }),
-    new Platform({ x: platformImage.width * 4 + 300 - 2, y: platformLandingPosition, image: platformImage }),
-    new Platform({ x: platformImage.width * 5 + 600 - 2, y: platformLandingPosition, image: platformImage }),
+    new Platform({
+      x: platformImage.width * 2 + 100,
+      y: platformLandingPosition,
+      image: platformImage,
+    }),
+    new Platform({
+      x: platformImage.width * 3 + 300,
+      y: platformLandingPosition,
+      image: platformImage,
+    }),
+    new Platform({
+      x: platformImage.width * 4 + 300 - 2,
+      y: platformLandingPosition,
+      image: platformImage,
+    }),
+    new Platform({
+      x: platformImage.width * 5 + 600 - 2,
+      y: platformLandingPosition,
+      image: platformImage,
+    }),
   ]
 
   const genericObjects = [
@@ -357,12 +373,13 @@ function main() {
         player.position.x + player.width >= platform.position.x &&
         player.position.x <= platform.position.x + platform.width
 
-      const isFallingOntoTop = withinX &&
+      const isFallingOntoTop =
+        withinX &&
         player.position.y + player.height <= platform.position.y &&
         player.position.y + player.height + player.velocity.y >= platform.position.y
 
-      const isRestingOnTop = withinX &&
-        Math.abs(player.position.y + player.height - platform.position.y) < 1
+      const isRestingOnTop =
+        withinX && Math.abs(player.position.y + player.height - platform.position.y) < 1
 
       if (isFallingOntoTop || isRestingOnTop) {
         player.position.y = platform.position.y - player.height
