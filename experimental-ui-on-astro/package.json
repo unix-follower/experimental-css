@@ -12,16 +12,19 @@
     "preview": "astro preview",
     "astro": "astro",
     "lint": "eslint .",
-    "check-format": "prettier --log-level error --check '**/*.{js,jsx,ts,tsx,cjs,mjs,json,css,html}'",
-    "format": "prettier --write '**/*.{js,jsx,ts,tsx,cjs,mjs,json,css,html}'",
+    "check-format": "prettier --log-level error --check '**/*.{js,jsx,ts,tsx,cjs,mjs,json,css,html,astro}'",
+    "format": "prettier --write '**/*.{js,jsx,ts,tsx,cjs,mjs,json,css,html,astro}'",
     "test": "jest",
     "test:watch": "jest --watch"
   },
   "dependencies": {
+    "@astrojs/node": "^11.0.3",
     "@astrojs/react": "^6.0.1",
+    "@tailwindcss/vite": "^4.3.3",
     "astro": "^7.0.7",
     "react": "^19.2.7",
-    "react-dom": "^19.2.7"
+    "react-dom": "^19.2.7",
+    "tailwindcss": "^4.3.3"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
@@ -39,6 +42,7 @@
     "jest": "^30.4.2",
     "jest-environment-jsdom": "^30.4.1",
     "prettier": "^3.9.5",
+    "prettier-plugin-astro": "^0.14.1",
     "ts-jest": "^29.4.11",
     "ts-node": "^10.9.2",
     "typescript-eslint": "^8.64.0"
