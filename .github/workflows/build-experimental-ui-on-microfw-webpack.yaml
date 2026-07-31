@@ -1,9 +1,9 @@
-name: Build experimental-ui-on-microfw-webpack
+name: Build experimental-microfw-webpack-ui
 on:
   pull_request:
     paths:
-      - .github/workflows/build-experimental-ui-on-microfw-webpack.yaml
-      - experimental-ui-on-microfw-webpack/**
+      - .github/workflows/build-experimental-microfw-webpack-ui.yaml
+      - experimental-microfw-webpack-ui/**
     types:
       - opened
       - reopened
@@ -26,39 +26,39 @@ jobs:
         # https://github.com/marketplace/actions/setup-node-js-environment
         uses: actions/setup-node@v6
         with:
-          node-version-file: experimental-ui-on-microfw-webpack/package.json
+          node-version-file: experimental-microfw-webpack-ui/package.json
         
       - name: Install dependencies
         shell: bash
-        working-directory: experimental-ui-on-microfw-webpack
+        working-directory: experimental-microfw-webpack-ui
         run: npm ci
 
       - name: Check code formatting
         id: check_format
         continue-on-error: true
         shell: bash
-        working-directory: experimental-ui-on-microfw-webpack
+        working-directory: experimental-microfw-webpack-ui
         run: npm run check-format
 
       - name: Show format logs on check failure
         if: steps.check_format.outcome == 'failure'
         shell: bash
-        working-directory: experimental-ui-on-microfw-webpack
+        working-directory: experimental-microfw-webpack-ui
         run: |
           npm run format
           exit 1
 
       - name: Run ESLint
         shell: bash
-        working-directory: experimental-ui-on-microfw-webpack
+        working-directory: experimental-microfw-webpack-ui
         run: npm run lint
 
       - name: Run tests
         shell: bash
-        working-directory: experimental-ui-on-microfw-webpack
+        working-directory: experimental-microfw-webpack-ui
         run: npm run test
 
-      - name: Build experimental-ui-on-microfw-webpack
+      - name: Build experimental-microfw-webpack-ui
         shell: bash
-        working-directory: experimental-ui-on-microfw-webpack
+        working-directory: experimental-microfw-webpack-ui
         run: npm run build
