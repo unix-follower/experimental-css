@@ -1,9 +1,9 @@
-name: Build experimental-ui-on-vue
+name: Build experimental-vue-ui
 on:
   pull_request:
     paths:
-      - .github/workflows/build-experimental-ui-on-vue.yaml
-      - experimental-ui-on-vue/**
+      - .github/workflows/build-experimental-vue-ui.yaml
+      - experimental-vue-ui/**
     types:
       - opened
       - reopened
@@ -26,48 +26,48 @@ jobs:
         # https://github.com/marketplace/actions/setup-node-js-environment
         uses: actions/setup-node@v6
         with:
-          node-version-file: experimental-ui-on-vue/package.json
+          node-version-file: experimental-vue-ui/package.json
  
       - name: Install dependencies
         shell: bash
-        working-directory: experimental-ui-on-vue
+        working-directory: experimental-vue-ui
         run: npm ci
 
       - name: Check code formatting
         id: check_format
         continue-on-error: true
         shell: bash
-        working-directory: experimental-ui-on-vue
+        working-directory: experimental-vue-ui
         run: npm run check-format
 
       - name: Show format logs on check failure
         if: steps.check_format.outcome == 'failure'
         shell: bash
-        working-directory: experimental-ui-on-vue
+        working-directory: experimental-vue-ui
         run: |
           npm run format
           exit 1
 
       - name: Run checks
         shell: bash
-        working-directory: experimental-ui-on-vue
+        working-directory: experimental-vue-ui
         run: |
           npm run lint
           npm run type-check
 
       - name: Run unit tests
         shell: bash
-        working-directory: experimental-ui-on-vue
+        working-directory: experimental-vue-ui
         run: npm run test:unit
 
       # - name: Run E2E tests
       #   shell: bash
-      #   working-directory: experimental-ui-on-vue
+      #   working-directory: experimental-vue-ui
       #   run: |
       #     npm run prepare
       #     npm run test:e2e
 
-      - name: Build experimental-ui-on-vue
+      - name: Build experimental-vue-ui
         shell: bash
-        working-directory: experimental-ui-on-vue
+        working-directory: experimental-vue-ui
         run: npm run build

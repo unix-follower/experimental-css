@@ -1,9 +1,9 @@
-name: Build experimental-ui-on-electron
+name: Build experimental-electron-ui
 on:
   pull_request:
     paths:
-      - .github/workflows/build-experimental-ui-on-electron.yaml
-      - experimental-ui-on-electron/**
+      - .github/workflows/build-experimental-electron-ui.yaml
+      - experimental-electron-ui/**
     types:
       - opened
       - reopened
@@ -26,41 +26,41 @@ jobs:
         # https://github.com/marketplace/actions/setup-node-js-environment
         uses: actions/setup-node@v6
         with:
-          node-version-file: experimental-ui-on-electron/package.json
+          node-version-file: experimental-electron-ui/package.json
         
       - name: Install dependencies
         shell: bash
-        working-directory: experimental-ui-on-electron
+        working-directory: experimental-electron-ui
         run: npm ci
 
       - name: Check code formatting
         id: check_format
         continue-on-error: true
         shell: bash
-        working-directory: experimental-ui-on-electron
+        working-directory: experimental-electron-ui
         run: npm run check-format
 
       - name: Show format logs on check failure
         if: steps.check_format.outcome == 'failure'
         shell: bash
-        working-directory: experimental-ui-on-electron
+        working-directory: experimental-electron-ui
         run: |
           npm run format
           exit 1
 
       - name: Run ESLint
         shell: bash
-        working-directory: experimental-ui-on-electron
+        working-directory: experimental-electron-ui
         run: npm run lint
 
       - name: Run unit tests
         shell: bash
-        working-directory: experimental-ui-on-electron
+        working-directory: experimental-electron-ui
         run: npm run test:unit
 
       - name: Install XVFB and dependencies for Electron
         shell: bash
-        working-directory: experimental-ui-on-electron
+        working-directory: experimental-electron-ui
         run: |
           sudo apt-get update
           sudo apt-get install -y \
@@ -76,10 +76,10 @@ jobs:
 
       - name: Run tests with virtual display
         shell: bash
-        working-directory: experimental-ui-on-electron
+        working-directory: experimental-electron-ui
         run: xvfb-run --auto-servernum npm run test:e2e
 
-      - name: Build experimental-ui-on-electron
+      - name: Build experimental-electron-ui
         shell: bash
-        working-directory: experimental-ui-on-electron
+        working-directory: experimental-electron-ui
         run: npm run make
